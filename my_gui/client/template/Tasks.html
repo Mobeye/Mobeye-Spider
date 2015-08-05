@@ -1,0 +1,45 @@
+<template name="Task_parse">
+    <tr>
+        <td>
+            <button class="delete">&times;</button>
+        </td>
+        <td>{{timestamp}}</td>
+        <td>{{ean}}</td>
+        <td>{{sLibelleLigne1}}</td>
+        <td>{{sLibelleLigne2}}</td>
+        <td>{{sId}}</td>
+        <td>{{sPrixUnitaire}}</td>
+        <td>
+            <button class="addlist" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo listing" style="width:20px;height:20px;"></button>
+        </td>
+    </tr>
+</template>
+
+<template name="Task_scrap">
+    <tr>
+        <td>
+            <button class="delete">&times;</button>
+        </td>
+        <td>{{drive_id}}</td>
+        <td>{{timestamp}}</td>
+        <td>{{curl}}</td>
+        <td>
+            <button class="download" type="submit" style="border: 0; background: transparent"><img src="/src/download.png" alt="logo download" style="width:48px;height:48px;"></button>
+            {{#if isCLicked}}
+                {{show_content}}
+            {{/if}}
+        </td>
+    </tr>
+</template>
+
+<template name="Task_ref">
+    <tr>
+        <td>
+            <button class="delete">&times;</button>
+        </td>
+        <td>{{title}}</td>
+        <td>{{Packaging}}</td>
+        <td>{{Idproduit}}</td>
+        <td>{{Fournisseur}}</td>
+</tr>
+</template>

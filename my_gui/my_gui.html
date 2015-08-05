@@ -1,0 +1,55 @@
+<head>
+  <title>
+      /Io
+  </title>
+</head>
+
+<body>
+    {{> globale_button}}
+   <h1>{{collection_name}}</h1>
+    <h2>{{search_table}}</h2>
+    {{> search_button}}
+    <table>
+    {{#if isRef}}
+        <tr>
+            <th>Delete</th>
+            <th>Title</th>
+            <th>Packaging</th>
+            <th>Id Produit</th>
+            <th>Fournisseur</th>
+        </tr>
+        {{#each tasks_ref}}
+            {{> Task_ref}}
+        {{/each}}
+    {{else}}
+        {{#if isScraping}}
+            <tr>
+                <th>Delete</th>
+                <th>Drive_id</th>
+                <th>Timestamp</th>
+                <th>Curl</th>
+                <th>Content</th>
+            </tr>
+            {{#each tasks_scrap}}
+                {{> Task_scrap}}
+            {{/each}}
+        {{else}}
+            <tr>
+                <th>Delete</th>
+                <th>Timestamp</th>
+                <th>ean
+                    <button class="ean_sort" type="submit" style="border: 0; background: transparent"><img src="/src/sort.png" alt="logo ean sort" style="width:20px;height:20px;"></button>
+                </th>
+                <th>title</th>
+                <th>Packaging</th>
+                <th>Id Produit</th>
+                <th>Prix Unitaire</th>
+                <th>Add to list</th>
+            </tr>
+            {{#each tasks_parse}}
+                {{> Task_parse}}
+            {{/each}}
+        {{/if}}
+    {{/if}}
+    </table>
+</body>
