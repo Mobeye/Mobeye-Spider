@@ -1,0 +1,52 @@
+/* CSS declarations go here */
+table {
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid #fffdfe;
+}
+table {
+    width: 100%;
+}
+body  {
+    background-image: url('/src/sunset.jpg');
+    background-color: #d0ddee;
+}
+th, tr{
+    height: 50px;
+    background-color: rgba(248, 241, 255, 0.56);
+    color: #000000;
+}
+td {
+    padding: 15px;
+}
+
+.Scraping {
+    position: absolute;
+    right: 5px;
+}
+
+.Parsing {
+    position: absolute;
+    right: 80px;
+}
+
+.Refing {
+    position: absolute;
+    right: 145px;
+}
+td {
+    color: #000000;
+}
+
+h1, h2, h3 {
+    color: rgba(209, 234, 255, 0.92);
+    font-style: italic;
+}
+
+input:focus {
+    outline: none
+}
+
+
+

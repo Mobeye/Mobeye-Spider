@@ -1,0 +1,34 @@
+<template name="globale_button">
+    <button class="collection1" type="submit" style="border: 0; background: transparent"><img src="/src/eleclerc_logo.jpg" alt="logo eleclerc" style="width:60px;height:60px;"></button>
+    <button class="collection2" type="submit" style="border: 0; background: transparent"><img src="/src/auchan_logo.jpg" alt="logo auchan" style="width:60px;height:60px;"> </button>
+    <button class="collection3" type="submit" style="border: 0; background: transparent"><img src="/src/intermarche_logo.jpg" alt="logo intermarche" style="width:60px;height:60px;"> </button>
+    <button class="collection4" type="submit" style="border: 0; background: transparent"><img src="/src/carrefour_logo.png" alt="logo carrefour" style="width:60px;height:60px;"> </button>
+    <button class="Scraping" type="submit" style="border: 0; background: transparent"> <img src="/src/scrap.jpg" alt="logo scrap" style="width:60px;height:60px;"> </button>
+    <button class="Parsing" type="submit" style="border: 0; background: transparent"> <img src="/src/parse.png" alt="logo scrap" style="width:60px;height:60px;"> </button>
+    <button class="Refing" type="submit" style="border: 0; background: transparent"> <img src="/src/refing.png" alt="logo ref" style="width:60px;height:60px;"> </button>
+
+</template>
+
+<template name="search_button">
+    {{#if isParsing}}
+            <form class="search_title">
+                <input type="text"  name="text"  placeholder="Search in the title" />
+                <button class="clear_text" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
+            </form>
+            <form class="search_pack">
+                <input type="text"  name="text"  placeholder="Search in the packaging" />
+                <button class="clear_pack" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
+            </form>
+    {{/if}}
+    <form class="search_timestamp_gt">
+        <input type="text"  name="text"  placeholder="put a date limiter here [" />
+    </form>
+    <button class="clear_gt" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
+    <h3>{{search_timestamp_gt}}</h3>
+    <form class="search_timestamp_lt">
+        <input type="text"  name="text"  placeholder="put a date limiter here ]" />
+    </form>
+    <button class="clear_lt" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
+    <h3>{{search_timestamp_lt}}</h3>
+    <button class="sort" type="submit" style="border: 0; background: transparent"> <img src="/src/sort.png" alt="logo sort" style="width:32px;height:32px;"></button>
+</template>
