@@ -1,5 +1,6 @@
 MyCollection_scrap = {};
 MyCollection_parse = {};
+MyCollection_catalogue = {};
 MyCollection_parse.auchan = new Mongo.Collection('auchan_parse');
 MyCollection_parse.eleclerc = new Mongo.Collection('eleclerc_parse');
 MyCollection_parse.carrefour = new Mongo.Collection('carrefour_parse');
@@ -8,6 +9,10 @@ MyCollection_scrap.auchan = new Mongo.Collection('auchan_requests');
 MyCollection_scrap.eleclerc = new Mongo.Collection('eleclerc_requests');
 MyCollection_scrap.intermarche = new Mongo.Collection('intermarche_requests');
 MyCollection_scrap.carrefour = new Mongo.Collection('carrefour_requests');
+MyCollection_catalogue.auchan = new Mongo.Collection('auchan_catalogue');
+MyCollection_catalogue.eleclerc = new Mongo.Collection('eleclerc_catalogue');
+MyCollection_catalogue.carrefour = new Mongo.Collection('carrefour_catalogue');
+MyCollection_catalogue.intermarche = new Mongo.Collection('intermarche_catalogue');
 Collection_ref = new Mongo.Collection('drive_ref_to_add');
 
 if (Meteor.isServer) {
@@ -25,6 +30,28 @@ if (Meteor.isServer) {
     });
 
   });
+  Meteor.publish('MyCollection_catalogue', function(selected, searchValue_text, searchValue_pack) {
+    if (!searchValue_text && !searchValue_pack) {
+      return MyCollection_catalogue[selected].find({}, {
+        limit: 200
+      });
+    }
+    if (!searchValue_pack && searchValue_text) {
+      return MyCollection_catalogue[selected].find({'name': {$regex: searchValue_text, $options: 'i'}}, {
+            limit: 200
+          });
+    }
+    if (searchValue_pack && searchValue_text) {
+      return MyCollection_catalogue[selected].find({
+        'name': {$regex: searchValue_text, $options: 'i'},
+        'pack': {$regex: searchValue_pack, $options: 'i'}
+      },{
+        limit: 200
+      });
+    }
+    return MyCollection_catalogue[selected].find({'pack': {$regex: searchValue_pack, $options: 'i'}});
+  });
+
   Meteor.publish('MyCollection_parse', function(selected, searchValue_text, searchValue_pack, sort_order, gtDate, ltDate, bolean_ean) {
     if (!sort_order)
       sort_order = -1;
@@ -41,7 +68,9 @@ if (Meteor.isServer) {
           sPrixUnitaire: 1,
           ean: 1,
           sLibelleLigne1: 1,
-          sLibelleLigne2: 1
+          sLibelleLigne2: 1,
+          Categorie: 1,
+          vintage: 1
         },
         limit: 500,
         sort: {timestamp: sort_order, ean: bolean_ean}
@@ -56,7 +85,9 @@ if (Meteor.isServer) {
           sPrixUnitaire: 1,
           ean: 1,
           sLibelleLigne1: 1,
-          sLibelleLigne2: 1
+          sLibelleLigne2: 1,
+          Categorie: 1,
+          vintage: 1
         },
         timestamp: {
           $gte: gtDate,
@@ -74,7 +105,9 @@ if (Meteor.isServer) {
           sPrixUnitaire: 1,
           ean: 1,
           sLibelleLigne1: 1,
-          sLibelleLigne2: 1
+          sLibelleLigne2: 1,
+          Categorie: 1,
+          vintage: 1
         },
         timestamp: {
           $gte: gtDate,
@@ -91,7 +124,9 @@ if (Meteor.isServer) {
         sPrixUnitaire: 1,
         ean: 1,
         sLibelleLigne1: 1,
-        sLibelleLigne2: 1
+        sLibelleLigne2: 1,
+        Categorie: 1,
+        vintage: 1
       },
       timestamp: {
         $gt: gtDate,
@@ -106,9 +141,6 @@ if (Meteor.isServer) {
       $in : ids
     }});
   });
-  Meteor.publish('ref', function () {
-    return Collection_ref.find({});
-  })
 }
 
 if (Meteor.isClient) {
@@ -127,8 +159,8 @@ if (Meteor.isClient) {
   Tracker.autorun(function () {
     Meteor.subscribe('MyCollection_scrap', choosen.get(), Session.get('sort_order'), Session.get('gtDate'), Session.get('ltDate'));
     Meteor.subscribe('MyCollection_parse', choosen.get(), Session.get('searchValue'), Session.get('searchValue_pack'), Session.get('sort_order'), Session.get('gtDate'), Session.get('ltDate'), Session.get('bolean'));
+    Meteor.subscribe('MyCollection_catalogue', choosen.get(), Session.get('searchValue'), Session.get('searchValue_pack'));
     Meteor.subscribe('TaskDetail', choosen.get(), Session.get('showDetailOf'));
-    Meteor.subscribe('ref');
   });
 
   Template.body.helpers({
@@ -153,7 +185,7 @@ if (Meteor.isClient) {
       });
     },
     tasks_ref: function () {
-      return Collection_ref.find({});
+      return MyCollection_catalogue[choosen.get()].find({});
     },
     collection_name: function () {
       return choosen.get();
@@ -220,7 +252,7 @@ if (Meteor.isClient) {
 
   Template.Task_ref.events({
     "click .delete": function () {
-      Collection_ref.remove(this._id);
+      MyCollection_catalogue[choosen.get()].remove(this._id);
     }
   });
 
@@ -297,6 +329,11 @@ if (Meteor.isClient) {
   Template.search_button.helpers({
     isParsing: function () {
       if (table_mode.get() === 'Parsing') {
+        return true;
+      }
+    },
+    isRef: function() {
+      if(table_mode.get() === 'Ref'){
         return true;
       }
     },

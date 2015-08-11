@@ -6,7 +6,6 @@
     <button class="Scraping" type="submit" style="border: 0; background: transparent"> <img src="/src/scrap.jpg" alt="logo scrap" style="width:60px;height:60px;"> </button>
     <button class="Parsing" type="submit" style="border: 0; background: transparent"> <img src="/src/parse.png" alt="logo scrap" style="width:60px;height:60px;"> </button>
     <button class="Refing" type="submit" style="border: 0; background: transparent"> <img src="/src/refing.png" alt="logo ref" style="width:60px;height:60px;"> </button>
-
 </template>
 
 <template name="search_button">
@@ -19,6 +18,16 @@
                 <input type="text"  name="text"  placeholder="Search in the packaging" />
                 <button class="clear_pack" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
             </form>
+    {{/if}}
+    {{#if isRef}}
+        <form class="search_title">
+            <input type="text"  name="text"  placeholder="Search in the title" />
+            <button class="clear_text" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
+        </form>
+        <form class="search_pack">
+            <input type="text"  name="text"  placeholder="Search in pack" />
+            <button class="clear_pack" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
+        </form>
     {{/if}}
     <form class="search_timestamp_gt">
         <input type="text"  name="text"  placeholder="put a date limiter here [" />

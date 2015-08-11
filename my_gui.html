@@ -1,7 +1,12 @@
 <head>
-  <title>
+    <title>
       /Io
-  </title>
+    </title>
+    <meta http-equiv="cleartype" content="on">
+    <meta name="MobileOptimized" content="320">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 </head>
 
 <body>
@@ -15,8 +20,8 @@
             <th>Delete</th>
             <th>Title</th>
             <th>Packaging</th>
+            <th>ean</th>
             <th>Id Produit</th>
-            <th>Fournisseur</th>
         </tr>
         {{#each tasks_ref}}
             {{> Task_ref}}
@@ -42,6 +47,8 @@
                 </th>
                 <th>title</th>
                 <th>Packaging</th>
+                <th>Categorie</th>
+                <th>Vintage</th>
                 <th>Id Produit</th>
                 <th>Prix Unitaire</th>
                 <th>Add to list</th>
