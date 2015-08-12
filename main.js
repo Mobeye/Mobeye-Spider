@@ -13,7 +13,6 @@ MyCollection_catalogue.auchan = new Mongo.Collection('auchan_catalogue');
 MyCollection_catalogue.eleclerc = new Mongo.Collection('eleclerc_catalogue');
 MyCollection_catalogue.carrefour = new Mongo.Collection('carrefour_catalogue');
 MyCollection_catalogue.intermarche = new Mongo.Collection('intermarche_catalogue');
-Collection_ref = new Mongo.Collection('drive_ref_to_add');
 
 if (Meteor.isServer) {
   Meteor.publish('MyCollection_scrap', function(selected, sort_order, gtDate, ltDate) {
@@ -335,6 +334,11 @@ if (Meteor.isClient) {
     isRef: function() {
       if(table_mode.get() === 'Ref'){
         return true;
+      }
+    },
+    isScrap: function () {
+    if (table_mode.get() === 'Scraping'){
+      return true;
       }
     },
     search_timestamp_gt: function () {

@@ -11,14 +11,25 @@
 
 <template name="search_button">
     {{#if isParsing}}
-            <form class="search_title">
-                <input type="text"  name="text"  placeholder="Search in the title" />
-                <button class="clear_text" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
-            </form>
-            <form class="search_pack">
-                <input type="text"  name="text"  placeholder="Search in the packaging" />
-                <button class="clear_pack" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
-            </form>
+        <form class="search_title">
+            <input type="text"  name="text"  placeholder="Search in the title" />
+            <button class="clear_text" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
+        </form>
+        <form class="search_pack">
+            <input type="text"  name="text"  placeholder="Search in the packaging" />
+            <button class="clear_pack" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
+        </form>
+        <form class="search_timestamp_gt">
+            <input type="text"  name="text"  placeholder="put a date limiter here [" />
+        </form>
+        <button class="clear_gt" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
+        <h3>{{search_timestamp_gt}}</h3>
+        <form class="search_timestamp_lt">
+            <input type="text"  name="text"  placeholder="put a date limiter here ]" />
+        </form>
+        <button class="clear_lt" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
+        <h3>{{search_timestamp_lt}}</h3>
+        <button class="sort" type="submit" style="border: 0; background: transparent"> <img src="/src/sort.png" alt="logo sort" style="width:32px;height:32px;"></button>
     {{/if}}
     {{#if isRef}}
         <form class="search_title">
@@ -30,15 +41,17 @@
             <button class="clear_pack" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
         </form>
     {{/if}}
-    <form class="search_timestamp_gt">
-        <input type="text"  name="text"  placeholder="put a date limiter here [" />
-    </form>
-    <button class="clear_gt" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
-    <h3>{{search_timestamp_gt}}</h3>
-    <form class="search_timestamp_lt">
-        <input type="text"  name="text"  placeholder="put a date limiter here ]" />
-    </form>
-    <button class="clear_lt" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
-    <h3>{{search_timestamp_lt}}</h3>
-    <button class="sort" type="submit" style="border: 0; background: transparent"> <img src="/src/sort.png" alt="logo sort" style="width:32px;height:32px;"></button>
+    {{#if isScrap}}
+        <form class="search_timestamp_gt">
+            <input type="text"  name="text"  placeholder="put a date limiter here [" />
+        </form>
+        <button class="clear_gt" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
+        <h3>{{search_timestamp_gt}}</h3>
+        <form class="search_timestamp_lt">
+            <input type="text"  name="text"  placeholder="put a date limiter here ]" />
+        </form>
+        <button class="clear_lt" type="submit" style="border: 0; background: transparent"><img src="/src/clear.png" alt="logo clear" style="width:20px;height:20px;"></button>
+        <h3>{{search_timestamp_lt}}</h3>
+        <button class="sort" type="submit" style="border: 0; background: transparent"> <img src="/src/sort.png" alt="logo sort" style="width:32px;height:32px;"></button>
+    {{/if}}
 </template>
