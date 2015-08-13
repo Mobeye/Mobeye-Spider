@@ -20,9 +20,14 @@
             <th>Delete</th>
             <th>Title</th>
             <th>Packaging</th>
-            <th>ean</th>
             <th>picture</th>
             <th>Id Produit</th>
+            <th>Wine services</th>
+            <th>Coca services
+                <button class="coca_void_sort" type="submit" style="border: 0; background: transparent"><img src="/src/sort.png" alt="logo ean sort" style="width:20px;height:20px;"></button>
+                <button class="coca_ignore_sort" type="submit" style="border: 0; background: transparent"><img src="/src/sort.png" alt="logo ean sort" style="width:20px;height:20px;"></button>
+                <button class="coca_true_sort" type="submit" style="border: 0; background: transparent"><img src="/src/sort.png" alt="logo ean sort" style="width:20px;height:20px;"></button>
+            </th>
         </tr>
         {{#each tasks_ref}}
             {{> Task_ref}}

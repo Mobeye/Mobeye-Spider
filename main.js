@@ -29,26 +29,35 @@ if (Meteor.isServer) {
     });
 
   });
-  Meteor.publish('MyCollection_catalogue', function(selected, searchValue_text, searchValue_pack) {
+  Meteor.publish('MyCollection_catalogue', function(selected, searchValue_text, searchValue_pack, wine_sort) {
+    if (!wine_sort)
+      wine_sort = -1;
+
     if (!searchValue_text && !searchValue_pack) {
       return MyCollection_catalogue[selected].find({}, {
-        limit: 200
+        limit: 200,
+        sort: {wine_services: wine_sort}
       });
     }
     if (!searchValue_pack && searchValue_text) {
       return MyCollection_catalogue[selected].find({'name': {$regex: searchValue_text, $options: 'i'}}, {
-            limit: 200
-          });
+            limit: 200,
+            sort: {wine_services: wine_sort}
+      });
     }
     if (searchValue_pack && searchValue_text) {
       return MyCollection_catalogue[selected].find({
         'name': {$regex: searchValue_text, $options: 'i'},
         'pack': {$regex: searchValue_pack, $options: 'i'}
       },{
-        limit: 200
+        limit: 200,
+        sort: {wine_services: wine_sort}
       });
     }
-    return MyCollection_catalogue[selected].find({'pack': {$regex: searchValue_pack, $options: 'i'}});
+    return MyCollection_catalogue[selected].find({'pack': {$regex: searchValue_pack, $options: 'i'}}, {
+          limit: 200,
+          sort: {wine_services: wine_sort}
+    });
   });
 
   Meteor.publish('MyCollection_parse', function(selected, searchValue_text, searchValue_pack, sort_order, gtDate, ltDate, bolean_ean) {
@@ -152,13 +161,14 @@ if (Meteor.isClient) {
   Session.set('showDetailOf', []);
   Session.set('sort_order', -1);
   Session.set('bolean', -1);
+  Session.set('wine_sort', -1);
   Session.set('ltDate', new Date());
   Session.set('gtDate', new Date(0));
 
   Tracker.autorun(function () {
     Meteor.subscribe('MyCollection_scrap', choosen.get(), Session.get('sort_order'), Session.get('gtDate'), Session.get('ltDate'));
     Meteor.subscribe('MyCollection_parse', choosen.get(), Session.get('searchValue'), Session.get('searchValue_pack'), Session.get('sort_order'), Session.get('gtDate'), Session.get('ltDate'), Session.get('bolean'));
-    Meteor.subscribe('MyCollection_catalogue', choosen.get(), Session.get('searchValue'), Session.get('searchValue_pack'));
+    Meteor.subscribe('MyCollection_catalogue', choosen.get(), Session.get('searchValue'), Session.get('searchValue_pack'), Session.get('wine_sort'));
     Meteor.subscribe('TaskDetail', choosen.get(), Session.get('showDetailOf'));
   });
 
@@ -208,21 +218,18 @@ if (Meteor.isClient) {
       }
       else
         Session.set('bolean', -1);
+    },
+    "click .coca_void_sort": function () {
+      Session.set('wine_sort', 1)
+    },
+    "click .coca_true_sort": function () {
+      Session.set('wine_sort', -1)
     }
   });
 
   Template.Task_parse.events({
     "click .delete": function () {
       MyCollection_parse[choosen.get()].remove(this._id)
-    },
-    "click .addlist": function () {
-      push = {
-        "title": this.sLibelleLigne1,
-        "Packaging": this.sLibelleLigne2,
-        "Idproduit": this.sId,
-        "Fournisseur": choosen.get()
-      };
-      Collection_ref.insert(push);
     }
   });
 
@@ -252,6 +259,16 @@ if (Meteor.isClient) {
   Template.Task_ref.events({
     "click .delete": function () {
       MyCollection_catalogue[choosen.get()].remove(this._id);
+    },
+    "submit .Wine-text": function (event) {
+      event.preventDefault();
+      var text = event.target.text.value;
+      MyCollection_catalogue[choosen.get()].update({_id: this._id}, {$set :{wine_services: text}});
+    },
+    "submit .Coca-text": function (event) {
+      event.preventDefault();
+      var text = event.target.text.value;
+      MyCollection_catalogue[choosen.get()].update({_id: this._id}, {$set :{coca_services: text}});
     }
   });
 

@@ -44,7 +44,21 @@ h1, h2, h3 {
     font-style: italic;
 }
 
-input:focus {
-    outline: none
+input[type="text"] {
+    padding: 10px;
+    border: solid 1px #fff;
+    box-shadow: inset 1px 1px 2px 0 #707070;
+    transition: box-shadow 0.3s;
+}
+input[type="text"]:focus,
+input[type="text"].focus {
+    box-shadow: inset 3px 3px 4px 0 #538ac9;
 }
 
+a>div {
+    display: none;
+}
+
+a:hover>div {
+    display: block;
+}
