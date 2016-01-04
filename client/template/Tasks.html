@@ -41,7 +41,24 @@
         </td>
         <td>{{name}}</td>
         <td>{{pack}}</td>
-        <td>{{ean}}</td>
+        <td>
+            <a href="{{picture}}" target="_blank">
+                Show picture !
+                <div>
+                    <img src="{{picture}}" />
+                </div>
+            </a>
+        </td>
         <td>{{id}}</td>
+        <td>
+            <form class="Wine-text">
+                <input type="text"  name="text"  value={{wine_services}}>
+            </form>
+        </td>
+        <td>
+            <form class="Coca-text">
+                <input type="text"  name="text"  value={{coca_services}}>
+            </form>
+        </td>
 </tr>
 </template>
